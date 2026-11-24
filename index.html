@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DodoStore | Elegance in Every Detail</title>
+<meta name="description" content="DodoStore: luxury handbags, necklaces, bracelets and wedding decorations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#faf6ee;--cream:#f2eadb;--champ:#e6d3ae;--gold:#a8844a;--gold2:#c9a96a;--plum:#3a2630;--ink:#2a1d23;--mute:#7a6a68;--line:#e4d8c1;--ease:cubic-bezier(.22,.8,.24,1);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost','Helvetica Neue',Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--sans);font-weight:300;background:var(--ivory);color:var(--ink);line-height:1.7;overflow-x:hidden}
+body.lock{overflow:hidden}
+img{max-width:100%;display:block}button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.1;letter-spacing:.005em}
+.wrap{max-width:1240px;margin:auto;padding:0 28px}
+section{padding:110px 0}
+.sh{text-align:center;margin-bottom:56px}.sh h2{font-size:clamp(2.1rem,4.4vw,3.3rem)}.sh p{color:var(--mute);margin-top:12px;max-width:520px;margin-inline:auto}
+.orn{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:20px;color:var(--gold2)}.orn:before,.orn:after{content:"";width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold2))}.orn:after{transform:scaleX(-1)}.orn i{width:7px;height:7px;transform:rotate(45deg);border:1px solid var(--gold2)}
+/* buttons */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 34px;background:var(--plum);color:var(--ivory);letter-spacing:.08em;font-size:.86rem;font-weight:400;border:1px solid var(--plum);transition:color .5s var(--ease),transform .4s var(--ease),box-shadow .4s}
+.btn:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,var(--gold2),var(--champ));transform:translateY(101%);transition:transform .5s var(--ease);z-index:0}
+.btn>*,.btn{z-index:1}.btn span{position:relative;z-index:1}
+.btn:hover:before{transform:none}.btn:hover{color:var(--ink);transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(58,38,48,.5)}.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--plum)}.btn.ghost:hover{border-color:var(--gold2)}
+.btn.sm{padding:10px 18px;font-size:.78rem}.btn[disabled]{opacity:.5;pointer-events:none}
+/* loader */
+#loader{position:fixed;inset:0;z-index:999;background:var(--ivory);display:grid;place-items:center;transition:opacity .9s .2s,visibility .9s .2s}
+#loader.done{opacity:0;visibility:hidden}
+#loader div{font-family:var(--serif);font-size:2.6rem;letter-spacing:.3em;text-align:center;animation:pulse 1.6s infinite}
+#loader i{display:block;height:1px;background:var(--gold2);margin-top:14px;transform-origin:left;animation:line 1.4s var(--ease) infinite}
+@keyframes pulse{50%{opacity:.45}}@keyframes line{0%{transform:scaleX(0)}60%,100%{transform:scaleX(1)}}
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .5s,box-shadow .5s,padding .4s,transform .6s var(--ease);padding:22px 0;transform:translateY(-100%)}
+body.ready header{transform:none}
+header.sc{background:rgba(250,246,238,.92);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding:12px 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-family:var(--serif);font-size:1.9rem;letter-spacing:.14em;font-weight:500;display:flex;align-items:center;gap:10px}.logo b{font-weight:600;color:var(--gold)}
+.logo svg{width:26px;height:26px;fill:none;stroke:var(--gold);stroke-width:1.2}
+.links{display:flex;gap:34px}.links a{font-size:.92rem;letter-spacing:.06em;position:relative;padding:4px 0}
+.links a:after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.links a:hover:after{transform:scaleX(1);transform-origin:left}
+.cartbtn{position:relative;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:.4s var(--ease);background:rgba(255,255,255,.4)}
+.cartbtn:hover{border-color:var(--gold2);transform:translateY(-2px)}.cartbtn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.3}
+#cnt{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;border-radius:10px;background:var(--gold);color:#fff;font-size:.7rem;display:grid;place-items:center;padding:0 5px;font-weight:500}
+#cnt.bump{animation:bump .6s var(--ease)}@keyframes bump{40%{transform:scale(1.7)}}
+.burger{display:none;width:46px;height:46px;position:relative}.burger i{position:absolute;left:12px;width:22px;height:1.5px;background:var(--ink);transition:.5s var(--ease)}
+.burger i:nth-child(1){top:18px}.burger i:nth-child(2){top:26px}.burger.on i:nth-child(1){top:22px;transform:rotate(45deg)}.burger.on i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.mm{position:fixed;inset:0;z-index:55;background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px;clip-path:circle(0 at calc(100% - 40px) 40px);transition:clip-path .8s var(--ease);visibility:hidden}
+.mm.on{clip-path:circle(150% at calc(100% - 40px) 40px);visibility:visible}
+.mm a{font-family:var(--serif);font-size:2.3rem;opacity:0;transform:translateY(24px);transition:.6s var(--ease)}
+.mm.on a{opacity:1;transform:none;transition-delay:calc(.15s + var(--i)*.07s)}
+/* hero */
+.hero{min-height:100vh;padding:130px 0 80px;display:flex;align-items:center;background:radial-gradient(900px 600px at 85% 30%,var(--champ),transparent 70%),linear-gradient(180deg,var(--ivory),var(--cream));position:relative;overflow:hidden}
+.hg{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+.hero h1{font-size:clamp(3.2rem,7.4vw,6.4rem);letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.ln{display:block;overflow:hidden;padding-bottom:.08em}.ln span{display:block;transform:translateY(110%);transition:transform 1.2s var(--ease)}
+body.ready .ln span{transform:none}.ln:nth-child(2) span{transition-delay:.15s}.ln:nth-child(3) span{transition-delay:.3s}
+.hero p{max-width:440px;margin:30px 0 40px;color:var(--mute);font-size:1.08rem}
+.fade{opacity:0;transform:translateY(20px);transition:1s var(--ease)}body.ready .fade{opacity:1;transform:none}
+.hbtns{display:flex;gap:16px;flex-wrap:wrap}
+.arch{position:relative;aspect-ratio:4/5;max-width:470px;margin-left:auto;border-radius:300px 300px 6px 6px;overflow:hidden;border:1px solid var(--gold2);padding:12px;clip-path:inset(100% 0 0 0);transition:clip-path 1.5s .4s var(--ease)}
+body.ready .arch{clip-path:inset(0)}
+.arch .ph{border-radius:290px 290px 2px 2px;height:100%}
+.float{position:absolute;border-radius:50%;pointer-events:none;border:1px solid var(--gold2);opacity:.5;animation:fl 9s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-26px) rotate(12deg)}}
+.badge{position:absolute;left:-30px;bottom:60px;background:var(--ivory);padding:16px 22px;border:1px solid var(--line);box-shadow:0 20px 40px -20px rgba(58,38,48,.35);font-family:var(--serif);font-size:1.15rem;animation:fl 7s ease-in-out infinite;font-style:italic}
+.wrapimg{position:relative}
+/* placeholders */
+.ph{position:relative;overflow:hidden;background:linear-gradient(145deg,var(--cream),var(--champ));display:grid;place-items:center}
+.ph:before{content:"D";font-family:var(--serif);font-size:4.5rem;color:rgba(168,132,74,.4);letter-spacing:.1em}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+/* collections */
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.col{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;text-align:left;display:block;width:100%}
+.col .ph{position:absolute;inset:0}.col:hover img{transform:scale(1.1)}
+.col:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(42,29,35,.75),transparent 55%)}
+.col div{position:absolute;left:24px;right:24px;bottom:24px;z-index:2;color:#fff;transition:transform .6s var(--ease)}
+.col h3{font-size:1.8rem}.col span{font-size:.85rem;opacity:.85;display:block;max-height:0;overflow:hidden;opacity:0;transition:.6s var(--ease)}
+.col:hover span{max-height:30px;opacity:.9}.col:hover div{transform:translateY(-4px)}
+.col:before{content:"";position:absolute;inset:12px;border:1px solid rgba(255,255,255,.55);z-index:2;transform:scale(1.06);opacity:0;transition:.6s var(--ease)}.col:hover:before{opacity:1;transform:none}
+/* products */
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 24px}
+.card{background:transparent;transition:transform .6s var(--ease)}
+.card:hover{transform:translateY(-8px)}
+.im{position:relative;aspect-ratio:4/5;overflow:hidden;cursor:pointer;border:1px solid var(--line)}.im .ph{position:absolute;inset:0}
+.card:hover .im img{transform:scale(1.1)}
+.tg{position:absolute;top:14px;left:14px;z-index:2;background:var(--ivory);padding:3px 14px;font-size:.74rem;letter-spacing:.06em;color:var(--gold)}
+.qv{position:absolute;left:14px;right:14px;bottom:14px;z-index:2;padding:11px;background:rgba(250,246,238,.94);font-size:.8rem;letter-spacing:.06em;transform:translateY(160%);transition:transform .6s var(--ease)}
+.card:hover .qv,.qv:focus-visible{transform:none}
+.ci{padding:18px 4px 0}.ci small{color:var(--gold);font-size:.8rem;letter-spacing:.05em}.ci h3{font-size:1.5rem;margin:2px 0 6px}
+.ci p{color:var(--mute);font-size:.9rem;line-height:1.55;min-height:3em}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px}.row b{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--plum)}
+.cat{margin-bottom:84px}.cat h3{font-size:2.3rem;text-align:left;margin-bottom:28px;display:flex;align-items:center;gap:20px}.cat h3:after{content:"";flex:1;height:1px;background:var(--line)}
+.tools{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:60px;align-items:center}
+.chips{display:flex;gap:10px;flex-wrap:wrap}.chip{padding:9px 22px;border:1px solid var(--line);font-size:.86rem;transition:.4s var(--ease)}.chip:hover{border-color:var(--gold2)}.chip.on{background:var(--plum);color:var(--ivory);border-color:var(--plum)}
+.search{position:relative;width:min(100%,320px)}.search input{width:100%;padding:12px 18px;border:1px solid var(--line);background:#fff8;font:inherit;transition:.4s var(--ease)}.search input:focus{outline:0;border-color:var(--gold2);box-shadow:0 0 0 4px rgba(201,169,106,.18)}
+.empty{text-align:center;color:var(--mute);padding:40px 0;font-family:var(--serif);font-size:1.5rem}
+.sec-alt{background:var(--cream)}
+/* promo */
+.promo{background:linear-gradient(120deg,var(--plum),#5a3a48);color:var(--ivory);position:relative;overflow:hidden;text-align:center}
+.promo h2{font-size:clamp(2.2rem,5vw,4rem);max-width:760px;margin:0 auto 20px}.promo p{max-width:520px;margin:0 auto 34px;opacity:.8}
+.promo .btn{background:var(--champ);color:var(--ink);border-color:var(--champ)}.promo .btn:before{background:#fff}
+.promo .float{border-color:var(--gold2);opacity:.35}
+/* story */
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}.sg h2{font-size:clamp(2.2rem,4.4vw,3.5rem);margin-bottom:24px}.sg p{color:var(--mute);margin-bottom:18px;max-width:520px}
+.stats{display:flex;gap:44px;margin-top:34px}.stats b{display:block;font-family:var(--serif);font-size:2.6rem;color:var(--gold);font-weight:500;line-height:1}.stats span{font-size:.85rem;color:var(--mute)}
+.simg{position:relative;aspect-ratio:4/5;max-width:460px}.simg .ph{height:100%;border:1px solid var(--line)}.simg:after{content:"";position:absolute;inset:-18px 18px 18px -18px;border:1px solid var(--gold2);z-index:-1}
+/* testimonials */
+.tg3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.tc{background:var(--ivory);padding:40px 34px;border:1px solid var(--line);transition:.6s var(--ease)}.tc:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(58,38,48,.35)}
+.tc q{font-family:var(--serif);font-size:1.4rem;line-height:1.4;display:block;quotes:none}.tc div{margin-top:22px;color:var(--gold);font-size:.9rem}.stars{letter-spacing:4px;color:var(--gold2);margin-bottom:14px}
+/* insta */
+.ig{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.ig a{position:relative;aspect-ratio:1;overflow:hidden;display:block}.ig .ph{position:absolute;inset:0}.ig a:hover img{transform:scale(1.14)}
+.ig a:after{content:"View";position:absolute;inset:0;background:rgba(58,38,48,.55);color:#fff;display:grid;place-items:center;opacity:0;transition:.5s;letter-spacing:.1em}.ig a:hover:after{opacity:1}
+/* footer */
+footer{background:var(--plum);color:#e9dfd2;padding:80px 0 30px}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:50px}footer h4{font-family:var(--serif);font-size:1.4rem;color:var(--champ);margin-bottom:18px;font-weight:500}
+footer li{list-style:none;margin-bottom:8px;font-size:.92rem}footer a{opacity:.8;transition:.4s}footer a:hover{opacity:1;color:var(--champ)}
+.soc{display:flex;gap:12px;margin-top:22px}.soc a{width:44px;height:44px;border:1px solid rgba(230,211,174,.4);border-radius:50%;display:grid;place-items:center;opacity:1;transition:.5s var(--ease)}.soc a:hover{background:var(--champ);color:var(--ink);transform:translateY(-4px) rotate(8deg)}.soc svg{width:19px;height:19px;fill:currentColor}
+.fb{margin-top:56px;padding-top:24px;border-top:1px solid rgba(230,211,174,.2);font-size:.82rem;opacity:.7;text-align:center}
+/* overlay, drawer, modal */
+.ov{position:fixed;inset:0;background:rgba(42,29,35,.5);backdrop-filter:blur(4px);z-index:80;opacity:0;visibility:hidden;transition:.5s}.ov.on{opacity:1;visibility:visible}
+.dr{position:fixed;top:0;right:0;height:100%;width:min(440px,100%);background:var(--ivory);z-index:90;display:flex;flex-direction:column;transform:translateX(105%);transition:transform .7s var(--ease);box-shadow:-30px 0 60px -30px rgba(0,0,0,.4)}.dr.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:26px 28px;border-bottom:1px solid var(--line)}.dh h3{font-size:1.8rem}
+.x{width:40px;height:40px;font-size:1.6rem;line-height:1;border-radius:50%;transition:.5s var(--ease)}.x:hover{background:var(--cream);transform:rotate(90deg)}
+.db{flex:1;overflow:auto;padding:10px 28px}
+.it{display:grid;grid-template-columns:76px 1fr auto;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);animation:in .6s var(--ease) both}
+@keyframes in{from{opacity:0;transform:translateX(30px)}}
+.it .ph{width:76px;height:92px}.it .ph:before{font-size:1.6rem}.it h4{font-family:var(--serif);font-size:1.2rem;font-weight:500;line-height:1.2}.it small{color:var(--mute)}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);margin-top:8px}.qty button{width:30px;height:30px;transition:.3s}.qty button:hover{background:var(--cream)}.qty span{min-width:28px;text-align:center;font-size:.9rem}
+.rm{font-size:.78rem;color:var(--mute);text-decoration:underline;align-self:end}.rm:hover{color:var(--gold)}
+.df{padding:24px 28px;border-top:1px solid var(--line);background:var(--cream)}
+.tl{display:flex;justify-content:space-between;margin-bottom:6px}.tl.big{font-family:var(--serif);font-size:1.5rem;font-weight:600;margin:10px 0 18px}
+.df .btn{width:100%;margin-top:10px}
+.ce{text-align:center;padding:90px 10px;color:var(--mute)}.ce h4{font-family:var(--serif);font-size:1.9rem;color:var(--ink);font-weight:500;margin-bottom:8px}.ce .btn{margin-top:24px}
+.md{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:20px;pointer-events:none;visibility:hidden}.md.on{pointer-events:auto;visibility:visible}
+.mb{background:var(--ivory);width:min(940px,100%);max-height:92vh;overflow:auto;position:relative;opacity:0;transform:translateY(50px) scale(.96);transition:.7s var(--ease)}.md.on .mb{opacity:1;transform:none}
+.mb .x{position:absolute;top:12px;right:12px;z-index:3;background:var(--ivory)}
+.pd{display:grid;grid-template-columns:1fr 1fr}.pd .ph{min-height:420px}.pd>div:last-child{padding:50px 40px;display:flex;flex-direction:column;justify-content:center}
+.pd h2{font-size:2.6rem;margin:6px 0 12px}.pd .pr{font-family:var(--serif);font-size:2rem;color:var(--plum);margin:14px 0 24px;font-weight:600}.pd p{color:var(--mute)}
+.pd ul{list-style:none;margin:20px 0 28px;font-size:.9rem;color:var(--mute)}.pd li{padding:6px 0;border-bottom:1px solid var(--line)}
+/* checkout */
+.ck{padding:46px 48px}.ck h2{font-size:2.5rem;text-align:center}
+.steps{display:flex;justify-content:center;gap:0;margin:26px 0 36px}.st{display:flex;align-items:center;font-size:.86rem;color:var(--mute)}.st i{width:30px;height:30px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-style:normal;margin-right:10px;transition:.6s var(--ease)}.st:not(:last-child):after{content:"";width:56px;height:1px;background:var(--line);margin:0 14px}
+.st.on{color:var(--ink)}.st.on i{background:var(--plum);color:#fff;border-color:var(--plum);transform:scale(1.12)}.st.dn i{background:var(--gold2);border-color:var(--gold2);color:#fff}
+.pn{display:none;animation:in .7s var(--ease)}.pn.on{display:block}
+.fl{margin-bottom:20px}.fl label{display:block;font-size:.86rem;margin-bottom:6px}.fl input,.fl textarea{width:100%;padding:14px 16px;border:1px solid var(--line);background:#fff;font:inherit;transition:.4s}
+.fl input:focus,.fl textarea:focus{outline:0;border-color:var(--gold2);box-shadow:0 0 0 4px rgba(201,169,106,.18)}.fl.bad input,.fl.bad textarea{border-color:#a4413a}
+.er{display:none;color:#a4413a;font-size:.8rem;margin-top:4px}.fl.bad .er{display:block;animation:in .4s}
+.sum{border:1px solid var(--line);background:var(--cream);padding:24px;margin-bottom:22px}.sum .l{display:flex;justify-content:space-between;gap:14px;font-size:.92rem;padding:6px 0}
+.dep{border:1px solid var(--gold2);background:linear-gradient(135deg,#fff8,var(--champ));padding:24px;margin-bottom:22px}.dep h4{font-family:var(--serif);font-size:1.5rem;font-weight:500;margin-bottom:6px}
+.dep .tl{font-size:1.02rem}.dep .tl b{font-family:var(--serif);font-size:1.3rem}
+.note{font-size:.84rem;color:var(--mute);margin-top:10px;line-height:1.55}
+.pm{display:flex;align-items:center;gap:12px;padding:14px 18px;border:1px solid var(--plum);margin-bottom:22px;font-weight:400}.pm i{width:16px;height:16px;border-radius:50%;border:5px solid var(--plum);background:#fff}
+.ca{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap}.ca .btn{flex:1;min-width:150px}
+.done{text-align:center}.done .ring{width:84px;height:84px;margin:0 auto 20px;border-radius:50%;border:1px solid var(--gold2);display:grid;place-items:center;animation:pulse 2.4s infinite}.done .ring svg{width:38px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-dasharray:50;animation:dr .9s .3s var(--ease) both}@keyframes dr{from{stroke-dashoffset:50}}
+.done p{color:var(--mute);margin:12px auto;max-width:460px}.oid{font-family:var(--serif);font-size:1.9rem;color:var(--gold);margin:6px 0}
+.toast{position:fixed;left:50%;bottom:30px;z-index:120;background:var(--plum);color:var(--ivory);padding:14px 28px;transform:translate(-50%,160%);transition:transform .7s var(--ease);font-size:.9rem;max-width:92vw}.toast.on{transform:translate(-50%,0)}
+/* reveal */
+.rv{opacity:0;transform:translateY(46px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}.rv.in{opacity:1;transform:none}
+.rv.card.in:hover{transform:translateY(-8px);transition-delay:0s;transition-duration:.6s}
+.wipe{position:relative}.wipe:after{content:"";position:absolute;inset:0;background:var(--cream);transform-origin:right;transition:transform 1.3s var(--ease);z-index:5;pointer-events:none}.wipe.in:after{transform:scaleX(0)}
+@media(max-width:1020px){.cg,.pg{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr}.tg3{grid-template-columns:1fr}.ig{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:860px){.links{display:none}.burger{display:block}.hg,.sg,.pd{grid-template-columns:1fr}.arch{margin:0 auto}.badge{left:0}.hero{padding-top:110px}section{padding:76px 0}.simg{margin:0 auto 20px}.ck{padding:34px 22px}.pd>div:last-child{padding:30px 24px}.pd .ph{min-height:320px}}
+@media(max-width:560px){.wrap{padding:0 18px}.pg{gap:26px 14px}.ci h3{font-size:1.2rem}.ci p{display:none}.row{flex-direction:column;align-items:flex-start}.cg{gap:12px}.col div{left:14px;bottom:14px}.col h3{font-size:1.3rem}.fg{grid-template-columns:1fr}.stats{gap:24px}.st span{display:none}.st:not(:last-child):after{width:34px}.qv{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv,.fade,.ln span,.arch{opacity:1!important;transform:none!important;clip-path:none!important}}
+</style>
+</head>
+<body>
+<div id="loader"><div>DODO<i></i></div></div>
+
+<header id="hd"><div class="wrap nav">
+  <a href="#home" class="logo" aria-label="DodoStore home"><svg viewBox="0 0 28 28"><path d="M14 2l3 8 8 1-6 5 2 9-7-5-7 5 2-9-6-5 8-1z"/></svg>Dodo<b>Store</b></a>
+  <nav class="links" aria-label="Main">
+    <a href="#home">Home</a><a href="#shop" data-f="all">Shop</a><a href="#shop" data-f="bags">Bags</a><a href="#shop" data-f="jewelry">Jewelry</a><a href="#shop" data-f="wedding">Wedding Collection</a><a href="#contact">Contact</a>
+  </nav>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button class="cartbtn" id="openCart" aria-label="Open cart"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 016 0v2"/></svg><span id="cnt">0</span></button>
+    <button class="burger" id="burger" aria-label="Menu"><i></i><i></i></button>
+  </div>
+</div></header>
+<div class="mm" id="mm">
+  <a style="--i:0" href="#home">Home</a><a style="--i:1" href="#shop" data-f="all">Shop</a><a style="--i:2" href="#shop" data-f="bags">Bags</a><a style="--i:3" href="#shop" data-f="jewelry">Jewelry</a><a style="--i:4" href="#shop" data-f="wedding">Wedding Collection</a><a style="--i:5" href="#contact">Contact</a>
+</div>
+
+<main>
+<section class="hero" id="home">
+  <span class="float" style="width:140px;height:140px;top:16%;left:4%"></span><span class="float" style="width:70px;height:70px;bottom:12%;left:44%;animation-delay:-3s"></span><span class="float" style="width:200px;height:200px;top:8%;right:-60px;animation-delay:-5s"></span>
+  <div class="wrap hg">
+    <div>
+      <h1><span class="ln"><span>Elegance</span></span><span class="ln"><span>in <em>Every</em></span></span><span class="ln"><span>Detail.</span></span></h1>
+      <p class="fade" style="transition-delay:.9s">Discover pieces that make every moment unforgettable. Handbags, jewelry and wedding florals, chosen with care.</p>
+      <div class="hbtns fade" style="transition-delay:1.1s"><a href="#shop" class="btn" data-f="all"><span>Shop Collection</span></a><a href="#collections" class="btn ghost"><span>Explore Collections</span></a></div>
+    </div>
+    <div class="wrapimg"><div class="arch"><div class="ph"><img src="bag1.jpg" alt="DodoStore signature collection" onerror="this.remove()"></div></div><div class="badge fade" style="transition-delay:1.6s">Crafted for your finest moments</div></div>
+  </div>
+</section>
+
+<section id="collections"><div class="wrap">
+  <div class="sh rv"><h2>Featured Collections</h2><div class="orn"><i></i></div></div>
+  <div class="cg" id="colGrid"></div>
+</div></section>
+
+<section class="sec-alt" id="best"><div class="wrap">
+  <div class="sh rv"><h2>Best Sellers</h2><p>The pieces our clients return to again and again.</p><div class="orn"><i></i></div></div>
+  <div class="pg" id="bestGrid"></div>
+</div></section>
+
+<section class="promo"><span class="float" style="width:260px;height:260px;top:-80px;left:-60px"></span><span class="float" style="width:120px;height:120px;bottom:30px;right:8%;animation-delay:-4s"></span>
+  <div class="wrap rv"><h2>Your wedding, dressed in beauty</h2><p>From bridal bouquets to ceremony arrangements and keepsake accessories, explore our wedding collection.</p><a href="#shop" class="btn" data-f="wedding"><span>Explore Wedding Collection</span></a></div>
+</section>
+
+<section id="new"><div class="wrap">
+  <div class="sh rv"><h2>New Arrivals</h2><p>Fresh from the atelier this season.</p><div class="orn"><i></i></div></div>
+  <div class="pg" id="newGrid"></div>
+</div></section>
+
+<section class="sec-alt" id="shop"><div class="wrap">
+  <div class="sh rv"><h2>The Boutique</h2><p>Browse every collection, or search for something specific.</p><div class="orn"><i></i></div></div>
+  <div class="tools rv">
+    <div class="chips" id="chips"></div>
+    <div class="search"><input id="q" type="search" placeholder="Search products..." aria-label="Search products"></div>
+  </div>
+  <div id="shopOut"></div>
+</div></section>
+
+<section id="story"><div class="wrap sg">
+  <div class="rv"><h2>A story of craft and care</h2>
+    <p>DodoStore began with a simple belief: the things you wear and the moments you celebrate deserve beautiful detail. Every handbag, necklace, bracelet and floral piece is chosen for its finish, its feel and the way it lasts.</p>
+    <p>We work with makers who share our patience for quality, so each order feels like a gift, whether for yourself or someone you love.</p>
+    <div class="stats"><div><b>4</b><span>Signature collections</span></div><div><b>100%</b><span>Carefully selected</span></div><div><b>1:1</b><span>Personal service</span></div></div></div>
+  <div class="simg wipe rv"><div class="ph"><img src="farah1.jpg" alt="Our story" loading="lazy" onerror="this.remove()"></div></div>
+</div></section>
+
+<section class="sec-alt"><div class="wrap">
+  <div class="sh rv"><h2>Words from our clients</h2><div class="orn"><i></i></div></div>
+  <div class="tg3">
+    <div class="tc rv"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><q>The handbag arrived beautifully wrapped and looks even better in person. Truly a luxury feel.</q><div>Sample review: Client A</div></div>
+    <div class="tc rv" style="--d:.15s"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><q>Our wedding flowers made the whole hall glow. Everyone asked where they came from.</q><div>Sample review: Client B</div></div>
+    <div class="tc rv" style="--d:.3s"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><q>A delicate necklace, fast replies and lovely service. I will order again.</q><div>Sample review: Client C</div></div>
+  </div>
+</div></section>
+
+<section id="insta"><div class="wrap">
+  <div class="sh rv"><h2>Follow our world</h2><p>@dinaa_astor_ on Instagram</p><div class="orn"><i></i></div></div>
+  <div class="ig" id="igGrid"></div>
+  <div style="text-align:center;margin-top:40px" class="rv"><a class="btn ghost" href="https://www.instagram.com/dinaa_astor_" target="_blank" rel="noopener"><span>Follow on Instagram</span></a></div>
+</div></section>
+</main>
+
+<footer id="contact"><div class="wrap">
+  <div class="fg">
+    <div><div class="logo" style="color:var(--ivory)">Dodo<b>Store</b></div><p style="margin-top:14px;opacity:.75;max-width:300px">Elegance in every detail. Handbags, jewelry and wedding collections.</p>
+      <div class="soc">
+        <a href="https://www.instagram.com/dinaa_astor_" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3zm5 3.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM17.3 5.8a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"/></svg></a>
+        <a href="https://www.tiktok.com/@dodo.store.online" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.9 2.9 0 11-2.9-2.9c.3 0 .6 0 .9.1V9.2a6 6 0 00-.9-.1 6 6 0 106 6V8.6a7.6 7.6 0 004.4 1.4V6.9a4.5 4.5 0 01-4.4-4.9z"/></svg></a>
+        <a href="https://wa.me/201152361402" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.200zm4.500-6.100c-.2-.1-1.500-.7-1.700-.8s-.4-.1-.6.100l-.8 1c-.1.200-.3.200-.5.100a6.700 6.700 0 01-3.300-2.900c-.2-.4.200-.4.700-1.300.1-.2 0-.3 0-.4l-.8-1.800c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.300 3 3 0 00-.9 2.200c0 1.300.9 2.600 1 2.700.1.200 1.800 2.800 4.400 3.900 1.600.7 2.300.7 3.100.6.500-.1 1.500-.6 1.700-1.200.2-.6.200-1.100.2-1.200s-.2-.2-.4-.3z"/></svg></a>
+      </div></div>
+    <div><h4>Shop</h4><ul><li><a href="#shop" data-f="bags">Handbags</a></li><li><a href="#shop" data-f="necklaces">Necklaces</a></li><li><a href="#shop" data-f="bracelets">Bracelets</a></li><li><a href="#shop" data-f="wedding">Wedding</a></li></ul></div>
+    <div><h4>Explore</h4><ul><li><a href="#story">Our story</a></li><li><a href="#best">Best sellers</a></li><li><a href="#new">New arrivals</a></li><li><a href="#insta">Instagram</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><a href="https://wa.me/201152361402" target="_blank" rel="noopener">WhatsApp: +20 115 236 1402</a></li><li><a href="https://www.instagram.com/dinaa_astor_" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.tiktok.com/@dodo.store.online" target="_blank" rel="noopener">TikTok</a></li></ul></div>
+  </div>
+  <div class="fb">&copy; <span id="yr"></span> DodoStore. All rights reserved.</div>
+</div></footer>
+
+<!-- cart drawer -->
+<div class="ov" id="ov"></div>
+<aside class="dr" id="dr" aria-label="Shopping cart"><div class="dh"><h3>Your Cart</h3><button class="x" id="closeCart" aria-label="Close cart">&times;</button></div><div class="db" id="cartBody"></div><div class="df" id="cartFoot"></div></aside>
+
+<!-- product modal -->
+<div class="md" id="pm"><div class="mb" role="dialog" aria-modal="true"><button class="x" data-close aria-label="Close">&times;</button><div class="pd" id="pmBody"></div></div></div>
+
+<!-- checkout modal -->
+<div class="md" id="ckm"><div class="mb" role="dialog" aria-modal="true" style="width:min(720px,100%)"><button class="x" data-close aria-label="Close">&times;</button>
+<div class="ck">
+  <h2>Checkout</h2>
+  <div class="steps"><div class="st on" data-s="1"><i>1</i><span>Your details</span></div><div class="st" data-s="2"><i>2</i><span>Review &amp; deposit</span></div><div class="st" data-s="3"><i>3</i><span>Send on WhatsApp</span></div></div>
+  <div class="pn on" id="p1">
+    <div class="fl"><label for="fn">Full name</label><input id="fn" autocomplete="name"><div class="er">Please enter your full name.</div></div>
+    <div class="fl"><label for="ph">Phone number</label><input id="ph" type="tel" autocomplete="tel" placeholder="+20 1XX XXX XXXX"><div class="er">Enter a valid phone number (10 to 15 digits).</div></div>
+    <div class="fl"><label for="ad">Full address</label><textarea id="ad" rows="3" autocomplete="street-address"></textarea><div class="er">Please enter your full delivery address.</div></div>
+    <div class="fl"><label for="nt">Order notes (optional)</label><textarea id="nt" rows="2"></textarea></div>
+    <div class="ca"><button class="btn ghost" data-close><span>Back to cart</span></button><button class="btn" id="to2"><span>Continue to review</span></button></div>
+  </div>
+  <div class="pn" id="p2">
+    <div class="sum" id="sumBox"></div>
+    <div class="dep" id="depBox"></div>
+    <div class="pm"><i></i>Payment method: Cash on Delivery</div>
+    <div class="ca"><button class="btn ghost" id="to1"><span>Edit details</span></button><button class="btn" id="place"><span>Place Order on WhatsApp</span></button></div>
+    <p class="note">Placing the order opens WhatsApp with your order message ready. Your order is only received once you press Send there.</p>
+  </div>
+  <div class="pn done" id="p3"></div>
+</div></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ============ CONFIG ============ */
+const OWNER_WA = "201152361402";
+const CURRENCY = "EGP";
+/* ============ PRODUCT DATA ============
+   Images use your original file names (bag1.jpg, neck1.jpg ...). Keep them next to index.html.
+   cat: bags | necklaces | bracelets | wedding   tag: "Best Seller" | "New" | "" */
+const PRODUCTS = [
+ {id:1, cat:"bags", name:"Mint Green Shoulder Bag", price:260, img:"bag1.jpg", pos:"50% 50%", tag:"Best Seller", desc:"Soft vegan-leather tote."},
+ {id:2, cat:"bags", name:"Burgundy Mini Crossbody", price:280, img:"bag2.jpg", pos:"50% 50%", tag:"", desc:"Compact everyday crossbody."},
+ {id:3, cat:"bags", name:"Dusty Pink Flap Bag", price:260, img:"bag3.jpg", pos:"50% 50%", tag:"", desc:"Handwoven summer bag."},
+ {id:4, cat:"bags", name:"Black Patent Clutch", price:275, img:"bag4.jpg", pos:"50% 50%", tag:"New", desc:"Elegant satin clutch."},
+ {id:5, cat:"necklaces", name:"Emerald & Gold Tennis Necklace", price:360, img:"neck1.jpg", pos:"50% 50%", tag:"Best Seller", desc:"Freshwater pearl pendant."},
+ {id:6, cat:"necklaces", name:"Double Layer Clover", price:240, img:"neck2.jpg", pos:"50% 50%", tag:"", desc:"18k gold-plated chain."},
+ {id:7, cat:"necklaces", name:"Custom Calligraphy Name Necklace", price:260, img:"neck3.jpg", pos:"50% 50%", tag:"New", desc:"Three-layer statement set."},
+ {id:8, cat:"bracelets", name:"Silver Crystal", price:350, img:"asawer1.jpg", pos:"10% 50%", tag:"Best Seller", desc:"Delicate charm details."},
+ {id:9, cat:"bracelets", name:"Gold Nail Bangle", price:200, img:"asawer2.jpg", pos:"58% 50%", tag:"", desc:"Stackable mauve bangles."},
+ {id:10, cat:"bracelets", name:"Gold Curb Chain Bracelet", price:170, img:"asawer3.jpg", pos:"50% 60%", tag:"New", desc:"Matching pearl bracelet."},
+ {id:11, cat:"wedding", name:"Custom Pearl Mirror Ring Tray", price:750, img:"farah1.jpg", pos:"50% 50%", tag:"Best Seller", desc:"Handmade satin flower gift box."},
+ {id:12, cat:"wedding", name:"Pearl Engagement Tray", price:600, img:"farah2.jpg", pos:"50% 50%", tag:"", desc:"Engraved mirror ring box display."},
+ {id:13, cat:"wedding", name:"Satin Ribbon Flower Box", price:450, img:"farah3.jpg", pos:"50% 50%", tag:"New", desc:"Pearl-trimmed mirror ring box display."}
+];
+const CATS = {bags:"Handbags", necklaces:"Necklaces", bracelets:"Bracelets", wedding:"Wedding Decorations & Flowers"};
+const CATSUB = {bags:"Carry your story", necklaces:"Delicate and bright", bracelets:"Details for the wrist", wedding:"Florals and accessories"};
+const COVER = {bags:"bag1.jpg", necklaces:"neck1.jpg", bracelets:"asawer1.jpg", wedding:"farah1.jpg"};
+
+/* ============ HELPERS ============ */
+const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const fmt = n => n.toLocaleString("en-US") + " " + CURRENCY;
+const byId = id => PRODUCTS.find(p => p.id === id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const POS = {}; PRODUCTS.forEach(p => POS[p.img] = p.pos);
+const img = (src, alt) => `<div class="ph"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" style="object-position:${POS[src]||'50% 50%'}" onerror="this.remove()"></div>`;
+const store = {get(k, d){ try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } }, set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)) } catch {} }};
+let cart = store.get("dodo_cart", {});
+let filter = "all", query = "";
+
+/* ============ LOADER, HEADER, REVEAL ============ */
+addEventListener("load", () => setTimeout(() => { $("#loader").classList.add("done"); document.body.classList.add("ready"); }, 900));
+setTimeout(() => { $("#loader").classList.add("done"); document.body.classList.add("ready"); }, 3500);
+addEventListener("scroll", () => $("#hd").classList.toggle("sc", scrollY > 40), {passive:true});
+$("#yr").textContent = new Date().getFullYear();
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+const observe = () => $$(".rv:not(.in)").forEach(el => io.observe(el));
+
+/* ============ RENDER ============ */
+function card(p, i) {
+  return `<article class="card rv" style="--d:${(i%4)*.1}s">
+    <div class="im" data-open="${p.id}" role="button" tabindex="0" aria-label="View ${esc(p.name)}">${img(p.img, p.name)}${p.tag ? `<span class="tg">${p.tag}</span>` : ""}<button class="qv" tabindex="-1">Quick view</button></div>
+    <div class="ci"><small>${CATS[p.cat]}</small><h3>${esc(p.name)}</h3><p>${esc(p.desc)}</p>
+    <div class="row"><b>${fmt(p.price)}</b><button class="btn sm" data-add="${p.id}"><span>Add to Cart</span></button></div></div></article>`;
+}
+function renderHome() {
+  $("#colGrid").innerHTML = Object.keys(CATS).map((k, i) => `<button class="col rv" style="--d:${i*.12}s" data-f="${k}">${img(COVER[k], CATS[k])}<div><h3>${CATS[k]}</h3><span>${CATSUB[k]}</span></div></button>`).join("");
+  $("#bestGrid").innerHTML = PRODUCTS.filter(p => p.tag === "Best Seller").map(card).join("");
+  $("#newGrid").innerHTML = PRODUCTS.filter(p => p.tag === "New").map(card).join("");
+  $("#igGrid").innerHTML = PRODUCTS.filter((_, i) => i % 2 === 0).slice(0, 6).map((p, i) => `<a class="rv" style="--d:${i*.08}s" href="https://www.instagram.com/dinaa_astor_" target="_blank" rel="noopener" aria-label="Instagram">${img(p.img, "DodoStore on Instagram")}</a>`).join("");
+  $("#chips").innerHTML = [["all","All"],...Object.entries(CATS).map(([k,v]) => [k, v.split(" ")[0] === "Wedding" ? "Wedding" : v])].map(([k,v]) => `<button class="chip" data-chip="${k}">${v}</button>`).join("");
+}
+function renderShop() {
+  const ok = p => (filter === "all" || filter === p.cat || (filter === "jewelry" && ["necklaces","bracelets"].includes(p.cat))) && (p.name + " " + p.desc + " " + CATS[p.cat]).toLowerCase().includes(query);
+  let html = "";
+  Object.keys(CATS).forEach(k => { const list = PRODUCTS.filter(p => p.cat === k && ok(p)); if (list.length) html += `<div class="cat"><h3 class="rv">${CATS[k]}</h3><div class="pg">${list.map(card).join("")}</div></div>`; });
+  $("#shopOut").innerHTML = html || `<div class="empty">No pieces found. Try another search or collection.</div>`;
+  $$(".chip").forEach(c => c.classList.toggle("on", c.dataset.chip === filter));
+  observe();
+}
+function setFilter(f) { filter = f; query = ""; $("#q").value = ""; renderShop(); }
+$("#q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); renderShop(); });
+
+/* ============ NAV / DELEGATION ============ */
+const mm = $("#mm"), burger = $("#burger");
+function menu(on) { mm.classList.toggle("on", on); burger.classList.toggle("on", on); document.body.classList.toggle("lock", on); }
+burger.onclick = () => menu(!mm.classList.contains("on"));
+document.addEventListener("click", e => {
+  const f = e.target.closest("[data-f]");
+  if (f) { setFilter(f.dataset.f); menu(false); if (f.tagName === "BUTTON") $("#shop").scrollIntoView(); }
+  else if (e.target.closest("#mm a")) menu(false);
+  const chip = e.target.closest("[data-chip]"); if (chip) setFilter(chip.dataset.chip);
+  const a = e.target.closest("[data-add]"); if (a) { e.stopPropagation(); addToCart(+a.dataset.add); a.classList.add("bump"); }
+  const o = e.target.closest("[data-open]"); if (o) openProduct(+o.dataset.open);
+  if (e.target.closest("[data-close]")) closeModals();
+  const pl = e.target.closest("[data-plus]"); if (pl) setQty(+pl.dataset.plus, 1);
+  const mi = e.target.closest("[data-minus]"); if (mi) setQty(+mi.dataset.minus, -1);
+  const rm = e.target.closest("[data-rm]"); if (rm) removeItem(+rm.dataset.rm);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { closeModals(); closeCart(); menu(false); }
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches("[data-open]")) { e.preventDefault(); openProduct(+e.target.dataset.open); }
+});
+
+/* ============ CART ============ */
+const count = () => Object.values(cart).reduce((a, b) => a + b, 0);
+const subtotal = () => Object.entries(cart).reduce((s, [id, q]) => s + (byId(+id)?.price || 0) * q, 0);
+function save() { store.set("dodo_cart", cart); renderCart(); }
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("on"), 2200); }
+function addToCart(id) { cart[id] = (cart[id] || 0) + 1; save(); const c = $("#cnt"); c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump"); toast(byId(id).name + " added to your cart"); }
+function setQty(id, d) { cart[id] = (cart[id] || 0) + d; if (cart[id] <= 0) delete cart[id]; save(); }
+function removeItem(id) { delete cart[id]; save(); }
+function renderCart() {
+  $("#cnt").textContent = count();
+  const ids = Object.keys(cart).filter(id => byId(+id));
+  if (!ids.length) {
+    $("#cartBody").innerHTML = `<div class="ce"><h4>Your cart is empty</h4><p>Discover something beautiful to begin.</p><button class="btn" data-shopnow><span>Continue Shopping</span></button></div>`;
+    $("#cartFoot").style.display = "none"; return;
+  }
+  $("#cartFoot").style.display = "";
+  $("#cartBody").innerHTML = ids.map(id => { const p = byId(+id), q = cart[id]; return `<div class="it">${img(p.img, p.name)}<div><h4>${esc(p.name)}</h4><small>${fmt(p.price)}</small><br><div class="qty"><button data-minus="${id}" aria-label="Decrease">&minus;</button><span>${q}</span><button data-plus="${id}" aria-label="Increase">+</button></div></div><div style="text-align:right;display:flex;flex-direction:column;justify-content:space-between"><b style="font-family:var(--serif);font-size:1.15rem">${fmt(p.price*q)}</b><button class="rm" data-rm="${id}">Remove</button></div></div>`; }).join("");
+  $("#cartFoot").innerHTML = `<div class="tl"><span>Subtotal</span><span>${fmt(subtotal())}</span></div><div class="tl big"><span>Total</span><span>${fmt(subtotal())}</span></div><button class="btn" id="goCk"><span>Proceed to Checkout</span></button><button class="btn ghost" data-shopnow><span>Continue Shopping</span></button>`;
+}
+const openCart = () => { $("#dr").classList.add("on"); $("#ov").classList.add("on"); document.body.classList.add("lock"); };
+const closeCart = () => { $("#dr").classList.remove("on"); if (!$(".md.on")) { $("#ov").classList.remove("on"); document.body.classList.remove("lock"); } };
+$("#openCart").onclick = openCart; $("#closeCart").onclick = closeCart;
+$("#ov").onclick = () => { closeCart(); closeModals(); };
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-shopnow]")) { closeCart(); $("#shop").scrollIntoView(); }
+  if (e.target.closest("#goCk")) { closeCart(); openCheckout(); }
+});
+
+/* ============ PRODUCT MODAL ============ */
+function openProduct(id) {
+  const p = byId(id);
+  $("#pmBody").innerHTML = `${img(p.img, p.name)}<div><small style="color:var(--gold)">${CATS[p.cat]}</small><h2>${esc(p.name)}</h2><p>${esc(p.desc)}</p><div class="pr">${fmt(p.price)}</div><ul><li>Premium finish and careful craftsmanship</li><li>Gift-ready presentation</li><li>Cash on Delivery with a 50% deposit</li></ul><button class="btn" data-add="${p.id}"><span>Add to Cart</span></button></div>`;
+  $("#pm").classList.add("on"); $("#ov").classList.add("on"); document.body.classList.add("lock");
+}
+function closeModals() { $$(".md.on").forEach(m => m.classList.remove("on")); if (!$("#dr.on")) { $("#ov").classList.remove("on"); document.body.classList.remove("lock"); } }
+
+/* ============ CHECKOUT ============ */
+function goStep(n) {
+  $$(".pn").forEach(p => p.classList.remove("on")); $("#p" + n).classList.add("on");
+  $$(".st").forEach(s => { const k = +s.dataset.s; s.classList.toggle("on", k === n); s.classList.toggle("dn", k < n); });
+  $("#ckm .mb").scrollTo({top:0, behavior:"smooth"});
+}
+function openCheckout() {
+  if (!count()) { toast("Your cart is empty"); return; }
+  goStep(1); $("#ckm").classList.add("on"); $("#ov").classList.add("on"); document.body.classList.add("lock");
+}
+function totals() { const t = subtotal(), dep = Math.ceil(t / 2); return {t, dep, rem: t - dep}; }
+function validate() {
+  const phoneDigits = $("#ph").value.replace(/\D/g, "");
+  const rules = [["fn", $("#fn").value.trim().split(/\s+/).filter(Boolean).length >= 2 || $("#fn").value.trim().length >= 5], ["ph", phoneDigits.length >= 10 && phoneDigits.length <= 15 && /^\+?[\d\s\-()]+$/.test($("#ph").value.trim())], ["ad", $("#ad").value.trim().length >= 10]];
+  let first = null;
+  rules.forEach(([id, ok]) => { $("#" + id).closest(".fl").classList.toggle("bad", !ok); if (!ok && !first) first = id; });
+  if (first) $("#" + first).focus();
+  return !first;
+}
+$$("#p1 input,#p1 textarea").forEach(el => el.addEventListener("input", () => el.closest(".fl").classList.remove("bad")));
+$("#to1").onclick = () => goStep(1);
+$("#to2").onclick = () => {
+  if (!validate()) return;
+  const {t, dep, rem} = totals();
+  $("#sumBox").innerHTML = Object.entries(cart).map(([id, q]) => { const p = byId(+id); return `<div class="l"><span>${esc(p.name)} &times; ${q}</span><span>${fmt(p.price*q)}</span></div>`; }).join("") + `<div class="l" style="border-top:1px solid var(--line);margin-top:8px;padding-top:12px"><span>Subtotal</span><span>${fmt(t)}</span></div><div class="l"><b style="font-family:var(--serif);font-size:1.3rem">Total order amount</b><b style="font-family:var(--serif);font-size:1.3rem">${fmt(t)}</b></div>`;
+  $("#depBox").innerHTML = `<h4>A 50% deposit is required</h4><div class="tl"><span>Required deposit (50%)</span><b>${fmt(dep)}</b></div><div class="tl"><span>Remaining balance on delivery</span><b>${fmt(rem)}</b></div><p class="note">After you send your order on WhatsApp, the deposit can be sent via InstaPay or Vodafone Cash to the same WhatsApp number (+20 115 236 1402). Your order stays <b>awaiting deposit confirmation</b> until the store confirms it. The remaining balance is paid in cash on delivery.</p>`;
+  goStep(2);
+};
+function nextOrderId() { const y = new Date().getFullYear(), n = store.get("dodo_seq", 0) + 1; store.set("dodo_seq", n); return `DODO-${y}-${String(n).padStart(4, "0")}`; }
+function buildMessage(o) {
+  const lines = o.items.map((i, k) => `${k+1}. ${i.name}\n   Qty: ${i.qty} x ${fmt(i.price)} = ${fmt(i.price*i.qty)}`).join("\n");
+  return [`*New DodoStore Order*`, `Order ID: ${o.id}`, ``, `*Customer*`, `Name: ${o.name}`, `Phone: ${o.phone}`, `Address: ${o.address}`, `Notes: ${o.notes || "None"}`, ``, `*Items*`, lines, ``, `Subtotal: ${fmt(o.subtotal)}`, `Total Order Amount: ${fmt(o.total)}`, `Required Deposit (50%): ${fmt(o.deposit)}`, `Remaining Balance: ${fmt(o.remaining)}`, ``, `Payment Method: Cash on Delivery`, `Deposit Status: Awaiting Confirmation`, `Deposit to be sent via InstaPay or Vodafone Cash to this WhatsApp number.`, ``, `Please confirm my order. Thank you!`].join("\n");
+}
+$("#place").onclick = () => {
+  if (!count() || !validate()) { goStep(1); return; }
+  const {t, dep, rem} = totals();
+  const order = {id: nextOrderId(), date: new Date().toISOString(), name: $("#fn").value.trim(), phone: $("#ph").value.trim(), address: $("#ad").value.trim(), notes: $("#nt").value.trim(), items: Object.entries(cart).map(([id, q]) => ({id:+id, name:byId(+id).name, price:byId(+id).price, qty:q})), subtotal:t, total:t, deposit:dep, remaining:rem, payment:"Cash on Delivery", depositStatus:"Awaiting Confirmation", status:"pending"};
+  const orders = store.get("dodo_orders", []); orders.push(order); store.set("dodo_orders", orders);
+  const url = `https://wa.me/${OWNER_WA}?text=${encodeURIComponent(buildMessage(order))}`;
+  cart = {}; save();
+  $("#p3").innerHTML = `<div class="ring"><svg viewBox="0 0 40 40"><path d="M8 21l8 8 16-18"/></svg></div><h2 style="font-size:2rem">Order ready to send</h2><div class="oid">${order.id}</div><p>WhatsApp should now be open with your order message filled in. <b>Press Send in WhatsApp to submit your order.</b> Your order is not received until you send it.</p><p>Status: pending, awaiting deposit confirmation. Deposit due: <b>${fmt(dep)}</b>. Balance on delivery: <b>${fmt(rem)}</b>.</p><div class="ca" style="margin-top:24px"><a class="btn" href="${url}" target="_blank" rel="noopener"><span>Open WhatsApp Again</span></a><button class="btn ghost" data-close><span>Close</span></button></div>`;
+  goStep(3);
+  const w = window.open(url, "_blank", "noopener"); if (!w) location.href = url;
+};
+
+/* ============ INIT ============ */
+renderHome(); renderShop(); renderCart(); observe();
+</script>
+</body>
+</html>
